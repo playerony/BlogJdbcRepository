@@ -69,4 +69,20 @@ public class User {
 		this.roleId = roleId;
 	}
 	
+	/**
+	 * 
+	 * toString
+	 * 
+	 * @return
+	 * 
+	 */
+	
+	@Override
+	public String toString()
+	{
+		return "User [id=" + id + ", login=" + login + 
+								  ", password=" + password + 
+								  ", roleId=" + roleId + "]";
+	}
+	
 }

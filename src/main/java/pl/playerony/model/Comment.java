@@ -91,4 +91,22 @@ public class Comment {
 		this.dislikes = dislikes;
 	}
 	
+	/**
+	 * 
+	 * toString
+	 * 
+	 * @return
+	 * 
+	 */
+	
+	@Override
+	public String toString()
+	{
+		return "Comment [id=" + id + ", content=" + content + 
+									 ", articleId=" + articleId + 
+									 ", userId=" + userId + 
+									 ", likes=" + likes +
+									 ", dislikes=" + dislikes + "]";
+	}
+	
 }

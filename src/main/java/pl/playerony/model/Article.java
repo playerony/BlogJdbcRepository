@@ -69,4 +69,20 @@ public class Article {
 		this.userId = userId;
 	}
 	
+	/**
+	 * 
+	 * toString
+	 * 
+	 * @return
+	 * 
+	 */
+	
+	@Override
+	public String toString()
+	{
+		return "Article [id=" + id + ", title=" + title + 
+									 ", content=" + content + 
+									 ", userId=" + userId +  "]";
+	}
+	
 }

@@ -46,4 +46,17 @@ public class Role {
 		this.name = name;
 	}
 	
+	/**
+	 * 
+	 * toString
+	 * 
+	 * @return
+	 * 
+	 */
+	
+	@Override
+	public String toString()
+	{
+		return "Role [id=" + id + ", name=" + name + "]";
+	}
 }
