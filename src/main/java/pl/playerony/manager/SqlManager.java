@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import pl.playerony.exception.DatabaseException;
 import pl.playerony.util.Connector;
+import pl.playerony.util.JdbcUtil;
 
 public class SqlManager {
 	private PreparedStatement preparedStatement;
@@ -17,11 +18,13 @@ public class SqlManager {
 		super();
 	}
 	
-	public void createQuery(final String sql) throws DatabaseException {
+	public SqlManager createQuery(final String sql) throws DatabaseException {
 		this.sql = sql;
-		this.counter = 0;
+		this.counter = 1;
 		
 		initializeStatement();
+		
+		return this;
 	}
 	
 	private void initializeStatement() throws DatabaseException {
@@ -34,7 +37,7 @@ public class SqlManager {
 		}
 	}
 	
-	public void setParameter(String value) throws DatabaseException {
+	public SqlManager setParameter(String value) throws DatabaseException {
 		try {
 			preparedStatement.setString(counter, value);
 		} catch (SQLException e) {
@@ -42,6 +45,8 @@ public class SqlManager {
 		}
 		
 		counter++;
+		
+		return this;
 	}
 	
 	public Integer executeQuery() throws DatabaseException {
@@ -51,8 +56,15 @@ public class SqlManager {
 			value = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DatabaseException("Some problems by query executing", e);
+		} finally {
+			close();
 		}
 		
 		return value;
+	}
+	
+	public void close() throws DatabaseException {
+		JdbcUtil.closeStatement(preparedStatement);
+		Connector.closeConnection(connection);
 	}
 }

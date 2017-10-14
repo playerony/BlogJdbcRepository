@@ -10,8 +10,10 @@ public class Role {
 		this.name = name;
 	}
 	
-	public Role() {
+	public Role(String name) {
 		super();
+		this.id = 0L;
+		this.name = name;
 	}
 	
 	/**

@@ -7,9 +7,9 @@ import pl.playerony.exception.InputException;
 import pl.playerony.model.User;
 
 public interface UserRepository {
-	User insertUser(User newUser) throws DatabaseException, InputException;
+	Boolean insertUser(User newUser) throws DatabaseException, InputException;
 	
-	User updateUser(Long id, User user) throws DatabaseException, InputException;
+	Boolean updateUser(Long id, User user) throws DatabaseException, InputException;
 	
 	User findUserById(Long id) throws DatabaseException;
 	
