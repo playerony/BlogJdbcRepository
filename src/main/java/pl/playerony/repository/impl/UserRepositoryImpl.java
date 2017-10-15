@@ -50,8 +50,9 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public User findUserById(Long id) throws DatabaseException {
-		String sql = "SELECT * FROM users "
-				   + "WHERE id = ?";
+		String sql = "SELECT * "
+				   + "	FROM users "
+				   + " WHERE id = ?";
 		
 		User user = new User(sqlManager.createQuery(sql)
 									   .setParameter(id)
@@ -62,7 +63,8 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public List<User> findUsers() throws DatabaseException {
-		String sql = "SELECT * FROM users";
+		String sql = "SELECT * "
+				   + "	FROM users";
 		
 		List<User> users = ConvertList.castListOfObjectsToUsers(sqlManager.createQuery(sql)
 															              .getExecuteList());
