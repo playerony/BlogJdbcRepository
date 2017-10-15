@@ -7,13 +7,16 @@ import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.impl.Article;
 import pl.playerony.repository.ArticleRepository;
+import pl.playerony.util.SqlUtil;
 import pl.playerony.util.converter.ConvertList;
 
 public class ArticleRepositoryImpl implements ArticleRepository {
-private SqlManager sqlManager;
+	private SqlManager sqlManager;
+	private SqlUtil sqlUtil;
 	
 	public ArticleRepositoryImpl() {
 		sqlManager = new SqlManager();
+		sqlUtil = new SqlUtil();
 	}
 	
 	@Override
@@ -34,6 +37,9 @@ private SqlManager sqlManager;
 
 	@Override
 	public Boolean updateArticle(Long id, Article article) throws DatabaseException, InputException {
+		if(!sqlUtil.checkId("articles", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+		
 		String sql = "UPDATE articles "
 				   + "	SET title = ?, "
 				   + "		content = ? "
@@ -52,6 +58,9 @@ private SqlManager sqlManager;
 
 	@Override
 	public Article findArticleById(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("articles", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+		
 		String sql = "SELECT * "
 				   + "	FROM articles "
 				   + " WHERE id = ?";
@@ -76,6 +85,9 @@ private SqlManager sqlManager;
 
 	@Override
 	public Boolean removeArticle(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("articles", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+		
 		String sql = "DELETE FROM articles "
 				   + "	WHERE id = ?";
 		

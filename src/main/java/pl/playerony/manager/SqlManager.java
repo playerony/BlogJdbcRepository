@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.playerony.exception.DatabaseException;
-import pl.playerony.model.impl.Role;
 import pl.playerony.util.Connector;
 import pl.playerony.util.JdbcUtil;
 
@@ -107,7 +106,7 @@ public class SqlManager {
 					row[i-1] = resultSet.getObject(i);
 			
 			if(resultSet.next())
-				throw new DatabaseException("There exist more than one unique topic with ID");
+				throw new DatabaseException("There exist more than one unique value with ID");
 		} catch (SQLException e) {
 			throw new DatabaseException("Error database connection failed", e);
 		} finally {
@@ -115,6 +114,25 @@ public class SqlManager {
 		}
 		
 		return row;
+	}
+	
+	public Boolean isExist() throws DatabaseException {
+		ResultSet resultSet = JdbcUtil.getResultSet(preparedStatement);
+		Boolean isGood = false;
+		
+		try {
+			if (resultSet.next())
+				isGood = true;
+			
+			if(resultSet.next())
+				throw new DatabaseException("There exist more than one unique value with ID");
+		} catch (SQLException e) {
+			throw new DatabaseException("Error database connection failed", e);
+		} finally {
+			close();
+		}
+		
+		return isGood;
 	}
 	
 	public Integer getColumnNumber(ResultSet resultSet) throws DatabaseException {
@@ -135,4 +153,5 @@ public class SqlManager {
 		JdbcUtil.closeStatement(preparedStatement);
 		Connector.closeConnection(connection);
 	}
+	
 }

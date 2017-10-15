@@ -7,13 +7,16 @@ import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.impl.User;
 import pl.playerony.repository.UserRepository;
+import pl.playerony.util.SqlUtil;
 import pl.playerony.util.converter.ConvertList;
 
 public class UserRepositoryImpl implements UserRepository {
 	private SqlManager sqlManager;
+	private SqlUtil sqlUtil;
 	
 	public UserRepositoryImpl() {
 		sqlManager = new SqlManager();
+		sqlUtil = new SqlUtil();
 	}
 	
 	@Override
@@ -34,6 +37,9 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public Boolean updateUser(Long id, User user) throws DatabaseException, InputException {
+		if(!sqlUtil.checkId("users", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in users table");
+		
 		String sql = "UPDATE users "
 				   + "	SET login = ?, "
 				   + "		password = ? "
@@ -50,6 +56,9 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public User findUserById(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("users", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in users table");
+		
 		String sql = "SELECT * "
 				   + "	FROM users "
 				   + " WHERE id = ?";
@@ -74,6 +83,9 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public Boolean removeUser(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("users", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in users table");
+		
 		String sql = "DELETE FROM users "
 				   + "	WHERE id = ?";
 		

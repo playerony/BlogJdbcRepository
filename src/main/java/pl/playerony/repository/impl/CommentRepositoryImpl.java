@@ -7,13 +7,16 @@ import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.impl.Comment;
 import pl.playerony.repository.CommentRepository;
+import pl.playerony.util.SqlUtil;
 import pl.playerony.util.converter.ConvertList;
 
 public class CommentRepositoryImpl implements CommentRepository {
 	private SqlManager sqlManager;
+	private SqlUtil sqlUtil;
 	
 	public CommentRepositoryImpl() {
 		sqlManager = new SqlManager();
+		sqlUtil = new SqlUtil();
 	}
 	
 	@Override
@@ -36,6 +39,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 
 	@Override
 	public Boolean updateComment(Long id, Comment comment) throws DatabaseException, InputException {
+		if(!sqlUtil.checkId("comments", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+		
 		String sql = "UPDATE comments "
 				   + "	SET content = ?, "
 				   + "		articleId = ? "
@@ -58,6 +64,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 
 	@Override
 	public Comment findCommentById(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("comments", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+		
 		String sql = "SELECT * "
 				   + "	FROM comments "
 				   + " WHERE id = ?";
@@ -82,6 +91,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 
 	@Override
 	public List<Comment> findCommentsByArticleId(Long articleId) throws DatabaseException {
+		if(!sqlUtil.checkId("articles", articleId))
+			throw new DatabaseException("This articleId[" + articleId + "] dont exist in comments table");
+		
 		String sql = "SELECT * "
 				   + "	FROM comments "
 				   + " WHERE articleId = ?";
@@ -95,6 +107,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 
 	@Override
 	public Boolean removeComment(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("comments", id))
+			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+		
 		String sql = "DELETE FROM comments "
 				   + "	WHERE id = ?";
 		
