@@ -82,7 +82,7 @@ public class SqlManager {
 		try {
 			while (resultSet.next()) {
 				for(int i = 1 ; i<=columnsNumber ; i++)
-					row[i-1] = resultSet.getArray(i);
+					row[i-1] = resultSet.getObject(i);
 
 				result.add(row);
 			}
