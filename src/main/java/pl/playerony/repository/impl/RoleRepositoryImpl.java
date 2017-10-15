@@ -5,7 +5,7 @@ import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.Role;
 import pl.playerony.repository.RoleRepository;
-import pl.playerony.util.Converter;
+import pl.playerony.util.converter.Converter;
 
 public class RoleRepositoryImpl implements RoleRepository {
 	private SqlManager sqlManager;

@@ -1,4 +1,4 @@
-package pl.playerony.util;
+package pl.playerony.util.converter;
 
 import pl.playerony.model.Article;
 import pl.playerony.model.Comment;
