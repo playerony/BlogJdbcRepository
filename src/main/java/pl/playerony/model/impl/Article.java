@@ -1,6 +1,8 @@
-package pl.playerony.model;
+package pl.playerony.model.impl;
 
-public class Article {
+import pl.playerony.model.Converter;
+
+public class Article implements Converter {
 	private Long id;
 	private String title;
 	private String content;
@@ -19,6 +21,11 @@ public class Article {
 		this.title = title;
 		this.content = content;
 		this.userId = userId;
+	}
+	
+	public Article(Object[] objectArray) {
+		super();
+		convert(objectArray);
 	}
 
 	/**
@@ -83,6 +90,22 @@ public class Article {
 		return "Article [id=" + id + ", title=" + title + 
 									 ", content=" + content + 
 									 ", userId=" + userId +  "]";
+	}
+
+	/**
+	 * 
+	 * converter
+	 * 
+	 * @return
+	 * 
+	 */
+
+	@Override
+	public void convert(Object[] objectArray) {
+		this.id = Long.parseLong(objectArray[0].toString());
+		this.title = objectArray[1].toString();
+		this.content = objectArray[2].toString();
+		this.userId = Long.parseLong(objectArray[3].toString());
 	}
 	
 }

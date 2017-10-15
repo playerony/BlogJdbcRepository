@@ -4,7 +4,7 @@ import java.util.List;
 
 import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
-import pl.playerony.model.Comment;
+import pl.playerony.model.impl.Comment;
 
 public interface CommentRepository {
 	Boolean insertComment(Comment newComment) throws DatabaseException, InputException;

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
-import pl.playerony.model.Role;
+import pl.playerony.model.impl.Role;
 import pl.playerony.repository.RoleRepository;
 import pl.playerony.repository.impl.RoleRepositoryImpl;
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
-import pl.playerony.model.User;
+import pl.playerony.model.impl.User;
 
 public interface UserRepository {
 	Boolean insertUser(User newUser) throws DatabaseException, InputException;

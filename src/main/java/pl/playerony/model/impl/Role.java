@@ -1,6 +1,8 @@
-package pl.playerony.model;
+package pl.playerony.model.impl;
 
-public class Role {
+import pl.playerony.model.Converter;
+
+public class Role implements Converter {
 	private Long id;
 	private String name;
 	
@@ -13,6 +15,11 @@ public class Role {
 	public Role(String name) {
 		super();
 		this.name = name;
+	}
+	
+	public Role(Object[] objectArray) {
+		super();
+		convert(objectArray);
 	}
 	
 	/**
@@ -59,6 +66,20 @@ public class Role {
 	public String toString()
 	{
 		return "Role [id=" + id + ", name=" + name + "]";
+	}
+	
+	/**
+	 * 
+	 * converter
+	 * 
+	 * @return
+	 * 
+	 */
+
+	@Override
+	public void convert(Object[] objectArray) {
+		this.id = Long.parseLong(objectArray[0].toString());
+		this.name = objectArray[1].toString();
 	}
 	
 }

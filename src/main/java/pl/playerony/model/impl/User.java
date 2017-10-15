@@ -1,6 +1,8 @@
-package pl.playerony.model;
+package pl.playerony.model.impl;
 
-public class User {
+import pl.playerony.model.Converter;
+
+public class User implements Converter {
 	private Long id;
 	private String login;
 	private String password;
@@ -19,6 +21,11 @@ public class User {
 		this.login = login;
 		this.password = password;
 		this.roleId = roleId;
+	}
+	
+	public User(Object[] objectArray) {
+		super();
+		convert(objectArray);
 	}
 	
 	/**
@@ -83,6 +90,22 @@ public class User {
 		return "User [id=" + id + ", login=" + login + 
 								  ", password=" + password + 
 								  ", roleId=" + roleId + "]";
+	}
+
+	/**
+	 * 
+	 * converter
+	 * 
+	 * @return
+	 * 
+	 */
+
+	@Override
+	public void convert(Object[] objectArray) {
+		this.id = Long.parseLong(objectArray[0].toString());
+		this.login = objectArray[1].toString();
+		this.password = objectArray[2].toString();
+		this.roleId = Long.parseLong(objectArray[3].toString());
 	}
 	
 }

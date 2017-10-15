@@ -3,9 +3,8 @@ package pl.playerony.repository.impl;
 import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
-import pl.playerony.model.Role;
+import pl.playerony.model.impl.Role;
 import pl.playerony.repository.RoleRepository;
-import pl.playerony.util.converter.Converter;
 
 public class RoleRepositoryImpl implements RoleRepository {
 	private SqlManager sqlManager;
@@ -33,9 +32,9 @@ public class RoleRepositoryImpl implements RoleRepository {
 		String sql = "SELECT * FROM roles "
 				   + "WHERE id = ?";
 		
-		Role role = Converter.castObjectArrayToRole(sqlManager.createQuery(sql)
-															  .setParameter(id)
-															  .getSingleValue());
+		Role role = new Role(sqlManager.createQuery(sql)
+									   .setParameter(id)
+									   .getSingleValue());
 		
 		return role;
 	}

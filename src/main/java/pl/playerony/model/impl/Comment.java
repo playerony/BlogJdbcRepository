@@ -1,6 +1,8 @@
-package pl.playerony.model;
+package pl.playerony.model.impl;
 
-public class Comment {
+import pl.playerony.model.Converter;
+
+public class Comment implements Converter {
 	private Long id;
 	private String content;
 	private Long articleId;
@@ -25,6 +27,11 @@ public class Comment {
 		this.userId = userId;
 		this.likes = likes;
 		this.dislikes = dislikes;
+	}
+	
+	public Comment(Object[] objectArray) {
+		super();
+		convert(objectArray);
 	}
 	
 	/**
@@ -107,6 +114,24 @@ public class Comment {
 									 ", userId=" + userId + 
 									 ", likes=" + likes +
 									 ", dislikes=" + dislikes + "]";
+	}
+	
+	/**
+	 * 
+	 * converter
+	 * 
+	 * @return
+	 * 
+	 */
+
+	@Override
+	public void convert(Object[] objectArray) {
+		this.id = Long.parseLong(objectArray[0].toString());
+		this.content = objectArray[1].toString();
+		this.articleId = Long.parseLong(objectArray[2].toString());
+		this.userId = Long.parseLong(objectArray[3].toString());
+		this.likes = Integer.parseInt(objectArray[4].toString());
+		this.dislikes = Integer.parseInt(objectArray[5].toString());
 	}
 	
 }

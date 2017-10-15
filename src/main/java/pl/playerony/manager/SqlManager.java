@@ -9,10 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.playerony.exception.DatabaseException;
-import pl.playerony.model.Role;
+import pl.playerony.model.impl.Role;
 import pl.playerony.util.Connector;
 import pl.playerony.util.JdbcUtil;
-import pl.playerony.util.converter.Converter;
 
 public class SqlManager {
 	private PreparedStatement preparedStatement;

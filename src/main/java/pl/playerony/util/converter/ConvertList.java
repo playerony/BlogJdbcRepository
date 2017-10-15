@@ -3,17 +3,17 @@ package pl.playerony.util.converter;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.playerony.model.Article;
-import pl.playerony.model.Comment;
-import pl.playerony.model.Role;
-import pl.playerony.model.User;
+import pl.playerony.model.impl.Article;
+import pl.playerony.model.impl.Comment;
+import pl.playerony.model.impl.Role;
+import pl.playerony.model.impl.User;
 
 public class ConvertList {
 	public static List<Role> castListOfObjectsToRoles(List<Object[]> objectArray) {
 		List<Role> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
-			Role role = Converter.castObjectArrayToRole(array);
+			Role role = new Role(array);
 			result.add(role);
 		}
 		
@@ -24,7 +24,7 @@ public class ConvertList {
 		List<User> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
-			User user = Converter.castObjectArrayToUser(array);
+			User user = new User(array);
 			result.add(user);
 		}
 		
@@ -35,7 +35,7 @@ public class ConvertList {
 		List<Comment> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
-			Comment comment = Converter.castObjectArrayToComment(array);
+			Comment comment = new Comment(array);
 			result.add(comment);
 		}
 		
@@ -46,7 +46,7 @@ public class ConvertList {
 		List<Article> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
-			Article article = Converter.castObjectArrayToArticle(array);
+			Article article = new Article(array);
 			result.add(article);
 		}
 		
