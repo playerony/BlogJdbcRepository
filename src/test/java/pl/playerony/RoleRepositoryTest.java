@@ -19,20 +19,20 @@ public class RoleRepositoryTest {
 		roleRepository = new RoleRepositoryImpl();
 	}
 	
-//	@Test
-//	public void testInsertRole() {
-//		Role role = new Role("ADMIN");
-//		
-//		try {
-//			roleRepository.insertRole(role);
-//		} catch (DatabaseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (InputException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testInsertRole() {
+		Role role = new Role("USER");
+		
+		try {
+			roleRepository.insertRole(role);
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void testSelectRole() {
@@ -47,13 +47,13 @@ public class RoleRepositoryTest {
 		
 	}
 	
-//	@Test
-//	public void testRemoveRole() {
-//		try {
-//			roleRepository.removeRole(2L);
-//		} catch (DatabaseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testRemoveRole() {
+		try {
+			roleRepository.removeRole(2L);
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
