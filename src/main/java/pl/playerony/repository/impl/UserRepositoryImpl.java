@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
 		String sql = "UPDATE users "
 				   + "	SET login = ?, "
 				   + "		password = ? "
-				   + " WHERE ID = ?";
+				   + " WHERE id = ?";
 		
 		Integer result = sqlManager.createQuery(sql)
 								   .setParameter(user.getLogin())

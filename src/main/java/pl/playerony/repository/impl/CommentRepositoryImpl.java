@@ -42,7 +42,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 				   + "		userId = ? "
 				   + "		likes = ? "
 				   + "		dislikes = ? "
-				   + " WHERE ID = ?";
+				   + " WHERE id = ?";
 		
 		Integer result = sqlManager.createQuery(sql)
 								   .setParameter(comment.getContent())
