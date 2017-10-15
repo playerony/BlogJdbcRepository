@@ -14,6 +14,7 @@ import pl.playerony.util.JdbcUtil;
 
 public class SqlManager {
 	private PreparedStatement preparedStatement;
+	private ResultSet resultSet;
 	private Connection connection;
 	private String sql;
 	private Integer counter;
@@ -43,10 +44,11 @@ public class SqlManager {
 
 	public SqlManager setParameter(Object value) throws DatabaseException {
 		try {
-			if (value instanceof Long) {
-				System.out.println(value);
+			if (value instanceof Long) 
 				preparedStatement.setLong(counter, (Long) value);
-			} else
+			else if (value instanceof Integer)
+				preparedStatement.setInt(counter, (Integer) value);
+			else
 				preparedStatement.setString(counter, (String) value);
 		} catch (SQLException e) {
 			throw new DatabaseException("Cannot set this parameter", e);
@@ -72,7 +74,7 @@ public class SqlManager {
 	}
 
 	public List<Object[]> getExecuteList() throws DatabaseException{
-		ResultSet resultSet = JdbcUtil.getResultSet(preparedStatement);
+		resultSet = JdbcUtil.getResultSet(preparedStatement);
 		Integer columnsNumber = getColumnNumber(resultSet);
 		
 		List<Object[]> result = new LinkedList<>();
@@ -95,7 +97,7 @@ public class SqlManager {
 	}
 	
 	public Object[] getSingleValue() throws DatabaseException {
-		ResultSet resultSet = JdbcUtil.getResultSet(preparedStatement);
+		resultSet = JdbcUtil.getResultSet(preparedStatement);
 		Integer columnsNumber = getColumnNumber(resultSet);
 		
 		Object[] row = new Object[columnsNumber];
@@ -117,7 +119,7 @@ public class SqlManager {
 	}
 	
 	public Boolean isExist() throws DatabaseException {
-		ResultSet resultSet = JdbcUtil.getResultSet(preparedStatement);
+		resultSet = JdbcUtil.getResultSet(preparedStatement);
 		Boolean isGood = false;
 		
 		try {
@@ -135,7 +137,7 @@ public class SqlManager {
 		return isGood;
 	}
 	
-	public Integer getColumnNumber(ResultSet resultSet) throws DatabaseException {
+	private Integer getColumnNumber(ResultSet resultSet) throws DatabaseException {
 		ResultSetMetaData resultSetMetaData;
 		Integer columnsNumber;
 		
@@ -149,7 +151,8 @@ public class SqlManager {
 		return columnsNumber;
 	}
 
-	public void close() throws DatabaseException {
+	private void close() throws DatabaseException {
+		JdbcUtil.closeResultSet(resultSet);
 		JdbcUtil.closeStatement(preparedStatement);
 		Connector.closeConnection(connection);
 	}
