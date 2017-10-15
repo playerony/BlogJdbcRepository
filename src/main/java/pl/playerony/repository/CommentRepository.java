@@ -17,5 +17,5 @@ public interface CommentRepository {
 	
 	List<Comment> findCommentsByArticleId(Long id) throws DatabaseException;
 	
-	void removeComment(Long id) throws DatabaseException;
+	Boolean removeComment(Long id) throws DatabaseException;
 }

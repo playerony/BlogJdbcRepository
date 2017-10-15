@@ -15,5 +15,5 @@ public interface ArticleRepository {
 	
 	List<Article> findArticles() throws DatabaseException;
 	
-	void removeArticle(Long id) throws DatabaseException;
+	Boolean removeArticle(Long id) throws DatabaseException;
 }

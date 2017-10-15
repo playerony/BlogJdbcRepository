@@ -5,6 +5,7 @@ import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.Role;
 import pl.playerony.repository.RoleRepository;
+import pl.playerony.util.Converter;
 
 public class RoleRepositoryImpl implements RoleRepository {
 	private SqlManager sqlManager;
@@ -15,10 +16,12 @@ public class RoleRepositoryImpl implements RoleRepository {
 	
 	@Override
 	public Boolean insertRole(Role newRole) throws DatabaseException, InputException {
-		String sql = "INSERT INTO roles(id, name) VALUES(?, ?)";
+		String sql = "INSERT INTO "
+				   + "	roles(id, name) "
+				   + " VALUES(?, ?)";
 		
 		Integer result = sqlManager.createQuery(sql)
-								   .setParameter(newRole.getId().toString())
+								   .setParameter(newRole.getId())
 								   .setParameter(newRole.getName())
 								   .executeQuery();
 		
@@ -26,15 +29,27 @@ public class RoleRepositoryImpl implements RoleRepository {
 	}
 
 	@Override
-	public Boolean findRoleById(Long id) throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+	public Role findRoleById(Long id) throws DatabaseException {
+		String sql = "SELECT * FROM roles "
+				   + "WHERE id = ?";
+		
+		Role role = Converter.castObjectArrayToRole(sqlManager.createQuery(sql)
+															  .setParameter(id)
+															  .getSingleValue());
+		
+		return role;
 	}
 
 	@Override
-	public void removeRole(Long id) throws DatabaseException {
-		// TODO Auto-generated method stub
+	public Boolean removeRole(Long id) throws DatabaseException {
+		String sql = "DELETE FROM roles "
+				   + "	WHERE id = ?";
 		
+		Integer result = sqlManager.createQuery(sql)
+				   				   .setParameter(id)
+				                   .executeQuery();
+
+		return result > 0;
 	}
 
 }

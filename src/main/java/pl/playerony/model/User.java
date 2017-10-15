@@ -4,9 +4,9 @@ public class User {
 	private Long id;
 	private String login;
 	private String password;
-	private Integer roleId;
+	private Long roleId;
 	
-	public User(Long id, String login, String password, Integer roleId) {
+	public User(Long id, String login, String password, Long roleId) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -14,7 +14,7 @@ public class User {
 		this.roleId = roleId;
 	}
 	
-	public User(String login, String password, Integer roleId) {
+	public User(String login, String password, Long roleId) {
 		super();
 		this.login = login;
 		this.password = password;
@@ -41,7 +41,7 @@ public class User {
 		return password;
 	}
 
-	public Integer getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 	
@@ -65,7 +65,7 @@ public class User {
 		this.password = password;
 	}
 
-	public void setRoleId(Integer roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 	

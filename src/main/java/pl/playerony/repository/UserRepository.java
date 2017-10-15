@@ -15,5 +15,5 @@ public interface UserRepository {
 	
 	List<User> findUsers() throws DatabaseException;
 	
-	void removeUser(Long id) throws DatabaseException;
+	Boolean removeUser(Long id) throws DatabaseException;
 }

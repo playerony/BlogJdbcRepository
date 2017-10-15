@@ -1,10 +1,27 @@
 package pl.playerony.util;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import pl.playerony.exception.DatabaseException;
+
 public class JdbcUtil {
+	public static ResultSet getResultSet(PreparedStatement preparedStatement) throws DatabaseException {
+		ResultSet resultSet = null;
+		try {
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet == null)
+				throw new DatabaseException("Error with creating resultSet, SQL: " + preparedStatement.toString());
+			
+			return resultSet;
+		} catch(SQLException e) {
+			throw new DatabaseException("Cant create resultSet", e);
+		}
+	}
+	
 	public static void closeResultSet(ResultSet resultSet) {
 		try {
 			if (resultSet != null)

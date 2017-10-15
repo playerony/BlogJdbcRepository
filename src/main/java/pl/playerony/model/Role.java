@@ -12,7 +12,6 @@ public class Role {
 	
 	public Role(String name) {
 		super();
-		this.id = 0L;
 		this.name = name;
 	}
 	
