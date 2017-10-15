@@ -6,6 +6,7 @@ import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.impl.User;
+import pl.playerony.model.validation.UserValidate;
 import pl.playerony.repository.UserRepository;
 import pl.playerony.util.SqlUtil;
 import pl.playerony.util.converter.ConvertList;
@@ -21,6 +22,11 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Override
 	public Boolean insertUser(User newUser) throws DatabaseException, InputException {
+		if(!sqlUtil.checkId("roles", newUser.getRoleId()))
+			throw new DatabaseException("This roleId[" + newUser.getRoleId() + "] dont exist in roles table");
+		
+		UserValidate.checkUser(newUser);
+		
 		String sql = "INSERT INTO "
 				   + "	users(id, login, password, roleId) "
 				   + " VALUES(?, ?, ?, ?)";
@@ -40,14 +46,21 @@ public class UserRepositoryImpl implements UserRepository {
 		if(!sqlUtil.checkId("users", id))
 			throw new DatabaseException("This id[" + id + "] dont exist in users table");
 		
+		if(!sqlUtil.checkId("roles", user.getRoleId()))
+			throw new DatabaseException("This roleId[" + user.getRoleId() + "] dont exist in roles table");
+		
+		UserValidate.checkUser(user);
+		
 		String sql = "UPDATE users "
 				   + "	SET login = ?, "
 				   + "		password = ? "
+				   + "		roleId = ? "
 				   + " WHERE id = ?";
 		
 		Integer result = sqlManager.createQuery(sql)
 								   .setParameter(user.getLogin())
 								   .setParameter(user.getPassword())
+								   .setParameter(user.getRoleId())
 								   .setParameter(id)
 								   .executeQuery();
 		

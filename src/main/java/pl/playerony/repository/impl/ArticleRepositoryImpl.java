@@ -6,6 +6,7 @@ import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.impl.Article;
+import pl.playerony.model.validation.ArticleValidate;
 import pl.playerony.repository.ArticleRepository;
 import pl.playerony.util.SqlUtil;
 import pl.playerony.util.converter.ConvertList;
@@ -21,6 +22,11 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	
 	@Override
 	public Boolean insertArticle(Article newArticle) throws DatabaseException, InputException {
+		if(!sqlUtil.checkId("users", newArticle.getUserId()))
+			throw new DatabaseException("This userId[" + newArticle.getUserId() + "] dont exist in users table");
+		
+		ArticleValidate.checkArticle(newArticle);
+		
 		String sql = "INSERT INTO "
 				   + "	articles(id, title, content, userId) "
 				   + " VALUES(?, ?, ?, ?)";
@@ -39,6 +45,11 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	public Boolean updateArticle(Long id, Article article) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("articles", id))
 			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+		
+		if(!sqlUtil.checkId("users", article.getUserId()))
+			throw new DatabaseException("This userId[" + article.getUserId() + "] dont exist in users table");
+		
+		ArticleValidate.checkArticle(article);
 		
 		String sql = "UPDATE articles "
 				   + "	SET title = ?, "

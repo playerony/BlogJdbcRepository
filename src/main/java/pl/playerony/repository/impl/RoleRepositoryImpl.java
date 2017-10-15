@@ -4,6 +4,7 @@ import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
 import pl.playerony.model.impl.Role;
+import pl.playerony.model.validation.RoleValidate;
 import pl.playerony.repository.RoleRepository;
 import pl.playerony.util.SqlUtil;
 
@@ -18,6 +19,8 @@ public class RoleRepositoryImpl implements RoleRepository {
 	
 	@Override
 	public Boolean insertRole(Role newRole) throws DatabaseException, InputException {
+		RoleValidate.checkRole(newRole);
+		
 		String sql = "INSERT INTO "
 				   + "	roles(id, name) "
 				   + " VALUES(?, ?)";

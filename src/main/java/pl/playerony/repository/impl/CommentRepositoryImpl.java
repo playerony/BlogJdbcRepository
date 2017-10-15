@@ -21,6 +21,12 @@ public class CommentRepositoryImpl implements CommentRepository {
 	
 	@Override
 	public Boolean insertComment(Comment newComment) throws DatabaseException, InputException {
+		if(!sqlUtil.checkId("articles", newComment.getArticleId()))
+			throw new DatabaseException("This articleId[" + newComment.getArticleId() + "] dont exist in articles table");
+		
+		if(!sqlUtil.checkId("users", newComment.getUserId()))
+			throw new DatabaseException("This userId[" + newComment.getUserId() + "] dont exist in users table");
+		
 		String sql = "INSERT INTO "
 				   + "	comments(id, content, articleId, userId, likes, dislikes) "
 				   + " VALUES(?, ?, ?, ?, ?, ?)";
@@ -41,6 +47,12 @@ public class CommentRepositoryImpl implements CommentRepository {
 	public Boolean updateComment(Long id, Comment comment) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("comments", id))
 			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+		
+		if(!sqlUtil.checkId("articles", comment.getArticleId()))
+			throw new DatabaseException("This articleId[" + comment.getArticleId() + "] dont exist in articles table");
+		
+		if(!sqlUtil.checkId("users", comment.getUserId()))
+			throw new DatabaseException("This userId[" + comment.getUserId() + "] dont exist in users table");
 		
 		String sql = "UPDATE comments "
 				   + "	SET content = ?, "
