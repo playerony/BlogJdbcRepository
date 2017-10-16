@@ -52,7 +52,7 @@ public class CommentRepositoryTest {
 	@Test
 	public void testSelectCommentById() {
 		try {
-			Comment comment = commentRepository.findCommentById(1L);
+			Comment comment = commentRepository.selectCommentById(1L);
 			
 			System.out.println(comment.toString());
 		} catch (DatabaseException e) {
@@ -64,7 +64,7 @@ public class CommentRepositoryTest {
 	@Test
 	public void testSelectCommentsByArticleId() {
 		try {
-			List<Comment> comments = commentRepository.findCommentsByArticleId(1L);
+			List<Comment> comments = commentRepository.selectCommentsByArticleId(1L);
 			
 			comments.forEach(e -> System.out.println(e.toString()));
 		} catch (DatabaseException e) {
@@ -76,7 +76,7 @@ public class CommentRepositoryTest {
 	@Test
 	public void testSelectComments() {
 		try {
-			List<Comment> comments = commentRepository.findComments();
+			List<Comment> comments = commentRepository.selectComments();
 			
 			comments.forEach(e -> System.out.println(e.toString()));
 		} catch (DatabaseException e) {

@@ -21,7 +21,7 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void testInsertUser() {
-		User user = new User("admin", "admin", 1L);
+		User user = new User("admin", "admin", 3L);
 		
 		try {
 			userRepository.insertUser(user); 
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
 	@Test
 	public void testSelectUser() {
 		try {
-			User user = userRepository.findUserById(1L);
+			User user = userRepository.selectUserById(1L);
 			
 			System.out.println(user.toString());
 		} catch (DatabaseException e) {
@@ -64,7 +64,7 @@ public class UserRepositoryTest {
 	@Test
 	public void testSelectUsers() {
 		try {
-			List<User> users = userRepository.findUsers();
+			List<User> users = userRepository.selectUsers();
 			
 			users.forEach(e -> System.out.println(e.toString()));
 		} catch (DatabaseException e) {

@@ -52,7 +52,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testSelectArticle() {
 		try {
-			Article article = articleRepository.findArticleById(1L);
+			Article article = articleRepository.selectArticleById(1L);
 			
 			System.out.println(article.toString());
 		} catch (DatabaseException e) {
@@ -64,7 +64,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testSelectArticles() {
 		try {
-			List<Article> articles = articleRepository.findArticles();
+			List<Article> articles = articleRepository.selectArticles();
 			
 			articles.forEach(e -> System.out.println(e.toString()));
 		} catch (DatabaseException e) {

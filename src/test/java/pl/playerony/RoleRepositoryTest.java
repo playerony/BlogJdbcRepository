@@ -1,5 +1,7 @@
 package pl.playerony;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,16 +35,42 @@ public class RoleRepositoryTest {
 	}
 	
 	@Test
+	public void testUpdateRole() {
+		Role role = new Role("USER");
+		
+		try {
+			roleRepository.updateRole(1L, role);
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testSelectRole() {
 		try {
-			Role role = roleRepository.findRoleById(1L);
+			Role role = roleRepository.selectRoleById(1L);
 			
 			System.out.println(role.toString());
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	@Test
+	public void testSelectRoles() {
+		try {
+			List<Role> roles = roleRepository.selectRoles();
+			
+			roles.forEach(e -> System.out.println(e.toString()));
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

@@ -127,7 +127,7 @@ public class SqlManager {
 				isGood = true;
 			
 			if(resultSet.next())
-				throw new DatabaseException("There's more than one unique value with this ID");
+				throw new DatabaseException("There's more than one unique value");
 		} catch (SQLException e) {
 			throw new DatabaseException("Error database connection failed", e);
 		} finally {

@@ -22,6 +22,9 @@ public class RoleRepositoryImpl implements RoleRepository {
 	
 	@Override
 	public Boolean insertRole(Role newRole) throws DatabaseException, InputException {
+		if(sqlUtil.checkStringValue("roles", "name", newRole.getName()))
+			throw new DatabaseException("This name of role[" + newRole.getName() + "] already exist in roles table");
+		
 		RoleValidate.checkRole(newRole);
 		
 		String sql = "INSERT INTO "
@@ -41,6 +44,9 @@ public class RoleRepositoryImpl implements RoleRepository {
 		if(!sqlUtil.checkId("roles", id))
 			throw new DatabaseException("This id[" + id + "] doesnt exist in roles table");
 					
+		if(sqlUtil.checkStringValue("roles", "name", role.getName()))
+			throw new DatabaseException("This name of role[" + role.getName() + "] already exist in roles table");
+		
 		RoleValidate.checkRole(role);
 		
 		String sql = "UPDATE roles "
@@ -76,7 +82,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 				   + "	FROM roles";
 		
 		List<Role> roles = ConvertList.castObjectArrayToRoleList(sqlManager.createQuery(sql)
-															              .getExecuteList());
+															               .getExecuteList());
 		
 		return roles;
 	}

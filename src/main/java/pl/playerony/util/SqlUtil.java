@@ -21,4 +21,16 @@ public class SqlUtil {
 
 		return isExist;
 	}
+	
+	public Boolean checkStringValue(String tableName, String columnName, String value) throws DatabaseException {
+		String sql = "SELECT * " 
+				   + "	FROM " + tableName 
+				   + " WHERE " + columnName + " = '" + value + "'";
+
+		Boolean isExist = sqlManager.createQuery(sql)
+									.isExist();
+
+		return isExist;
+	}
+	
 }

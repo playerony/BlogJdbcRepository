@@ -25,6 +25,9 @@ public class UserRepositoryImpl implements UserRepository {
 		if(!sqlUtil.checkId("roles", newUser.getRoleId()))
 			throw new DatabaseException("This roleId[" + newUser.getRoleId() + "] doesnt exist in roles table");
 		
+		if(sqlUtil.checkStringValue("users", "login", newUser.getLogin()))
+			throw new DatabaseException("This login[" + newUser.getLogin() + "] already exist in users table");
+		
 		UserValidate.checkUser(newUser);
 		
 		String sql = "INSERT INTO "
@@ -48,6 +51,9 @@ public class UserRepositoryImpl implements UserRepository {
 		
 		if(!sqlUtil.checkId("roles", user.getRoleId()))
 			throw new DatabaseException("This roleId[" + user.getRoleId() + "] doesnt exist in roles table");
+		
+		if(sqlUtil.checkStringValue("users", "login", user.getLogin()))
+			throw new DatabaseException("This login[" + user.getLogin() + "] already exist in users table");
 		
 		UserValidate.checkUser(user);
 		
