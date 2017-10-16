@@ -9,7 +9,7 @@ import pl.playerony.model.impl.Role;
 import pl.playerony.model.impl.User;
 
 public class ConvertList {
-	public static List<Role> castListOfObjectsToRoles(List<Object[]> objectArray) {
+	public static List<Role> castObjectArrayToRoleList(List<Object[]> objectArray) {
 		List<Role> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
@@ -20,7 +20,7 @@ public class ConvertList {
 		return result;
 	}
 	
-	public static List<User> castListOfObjectsToUsers(List<Object[]> objectArray) {
+	public static List<User> castObjectArrayToUserList(List<Object[]> objectArray) {
 		List<User> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
@@ -31,7 +31,7 @@ public class ConvertList {
 		return result;
 	}
 	
-	public static List<Comment> castListOfObjectsToComments(List<Object[]> objectArray) {
+	public static List<Comment> castObjectArrayToCommentList(List<Object[]> objectArray) {
 		List<Comment> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {
@@ -42,7 +42,7 @@ public class ConvertList {
 		return result;
 	}
 	
-	public static List<Article> castListOfObjectsToArticles(List<Object[]> objectArray) {
+	public static List<Article> castObjectArrayToArticleList(List<Object[]> objectArray) {
 		List<Article> result = new LinkedList<>();
 		
 		for(Object[] array : objectArray) {

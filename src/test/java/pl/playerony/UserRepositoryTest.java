@@ -12,7 +12,7 @@ import pl.playerony.repository.UserRepository;
 import pl.playerony.repository.impl.UserRepositoryImpl;
 
 public class UserRepositoryTest {
-private UserRepository userRepository;
+	private UserRepository userRepository;
 	
 	@Before
 	public void initialize() {

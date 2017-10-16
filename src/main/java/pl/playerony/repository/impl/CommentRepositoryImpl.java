@@ -22,10 +22,10 @@ public class CommentRepositoryImpl implements CommentRepository {
 	@Override
 	public Boolean insertComment(Comment newComment) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("articles", newComment.getArticleId()))
-			throw new DatabaseException("This articleId[" + newComment.getArticleId() + "] dont exist in articles table");
+			throw new DatabaseException("This articleId[" + newComment.getArticleId() + "] doesnt exist in articles table");
 		
 		if(!sqlUtil.checkId("users", newComment.getUserId()))
-			throw new DatabaseException("This userId[" + newComment.getUserId() + "] dont exist in users table");
+			throw new DatabaseException("This userId[" + newComment.getUserId() + "] doesnt exist in users table");
 		
 		String sql = "INSERT INTO "
 				   + "	comments(id, content, articleId, userId, likes, dislikes) "
@@ -46,13 +46,13 @@ public class CommentRepositoryImpl implements CommentRepository {
 	@Override
 	public Boolean updateComment(Long id, Comment comment) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("comments", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in comments table");
 		
 		if(!sqlUtil.checkId("articles", comment.getArticleId()))
-			throw new DatabaseException("This articleId[" + comment.getArticleId() + "] dont exist in articles table");
+			throw new DatabaseException("This articleId[" + comment.getArticleId() + "] doesnt exist in articles table");
 		
 		if(!sqlUtil.checkId("users", comment.getUserId()))
-			throw new DatabaseException("This userId[" + comment.getUserId() + "] dont exist in users table");
+			throw new DatabaseException("This userId[" + comment.getUserId() + "] doesnt exist in users table");
 		
 		String sql = "UPDATE comments "
 				   + "	SET content = ?, "
@@ -75,9 +75,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 	}
 
 	@Override
-	public Comment findCommentById(Long id) throws DatabaseException {
+	public Comment selectCommentById(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("comments", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in comments table");
 		
 		String sql = "SELECT * "
 				   + "	FROM comments "
@@ -91,28 +91,28 @@ public class CommentRepositoryImpl implements CommentRepository {
 	}
 
 	@Override
-	public List<Comment> findComments() throws DatabaseException {
+	public List<Comment> selectComments() throws DatabaseException {
 		String sql = "SELECT * "
 				   + "	FROM comments";
 		
-		List<Comment> comments = ConvertList.castListOfObjectsToComments(sqlManager.createQuery(sql)
-															              		   .getExecuteList());
+		List<Comment> comments = ConvertList.castObjectArrayToCommentList(sqlManager.createQuery(sql)
+															              		    .getExecuteList());
 		
 		return comments;
 	}
 
 	@Override
-	public List<Comment> findCommentsByArticleId(Long articleId) throws DatabaseException {
+	public List<Comment> selectCommentsByArticleId(Long articleId) throws DatabaseException {
 		if(!sqlUtil.checkId("articles", articleId))
-			throw new DatabaseException("This articleId[" + articleId + "] dont exist in comments table");
+			throw new DatabaseException("This articleId[" + articleId + "] doesnt exist in comments table");
 		
 		String sql = "SELECT * "
 				   + "	FROM comments "
 				   + " WHERE articleId = ?";
 		
-		List<Comment> comments = ConvertList.castListOfObjectsToComments(sqlManager.createQuery(sql)
-																				   .setParameter(articleId)
-															              		   .getExecuteList());
+		List<Comment> comments = ConvertList.castObjectArrayToCommentList(sqlManager.createQuery(sql)
+																				    .setParameter(articleId)
+															              		    .getExecuteList());
 		
 		return comments;
 	}
@@ -120,7 +120,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 	@Override
 	public Boolean removeComment(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("comments", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in comments table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in comments table");
 		
 		String sql = "DELETE FROM comments "
 				   + "	WHERE id = ?";

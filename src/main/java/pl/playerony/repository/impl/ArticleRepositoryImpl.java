@@ -23,7 +23,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	@Override
 	public Boolean insertArticle(Article newArticle) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("users", newArticle.getUserId()))
-			throw new DatabaseException("This userId[" + newArticle.getUserId() + "] dont exist in users table");
+			throw new DatabaseException("This userId[" + newArticle.getUserId() + "] doesnt exist in users table");
 		
 		ArticleValidate.checkArticle(newArticle);
 		
@@ -44,10 +44,10 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	@Override
 	public Boolean updateArticle(Long id, Article article) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("articles", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in articles table");
 		
 		if(!sqlUtil.checkId("users", article.getUserId()))
-			throw new DatabaseException("This userId[" + article.getUserId() + "] dont exist in users table");
+			throw new DatabaseException("This userId[" + article.getUserId() + "] doesnt exist in users table");
 		
 		ArticleValidate.checkArticle(article);
 		
@@ -68,9 +68,9 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	}
 
 	@Override
-	public Article findArticleById(Long id) throws DatabaseException {
+	public Article selectArticleById(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("articles", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in articles table");
 		
 		String sql = "SELECT * "
 				   + "	FROM articles "
@@ -84,12 +84,12 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	}
 
 	@Override
-	public List<Article> findArticles() throws DatabaseException {
+	public List<Article> selectArticles() throws DatabaseException {
 		String sql = "SELECT * "
 				   + "	FROM articles";
 		
-		List<Article> articles = ConvertList.castListOfObjectsToArticles(sqlManager.createQuery(sql)
-															              		   .getExecuteList());
+		List<Article> articles = ConvertList.castObjectArrayToArticleList(sqlManager.createQuery(sql)
+															              		    .getExecuteList());
 		
 		return articles;
 	}
@@ -97,7 +97,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	@Override
 	public Boolean removeArticle(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("articles", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in articles table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in articles table");
 		
 		String sql = "DELETE FROM articles "
 				   + "	WHERE id = ?";

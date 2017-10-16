@@ -11,11 +11,11 @@ public interface CommentRepository {
 	
 	Boolean updateComment(Long id, Comment comment) throws DatabaseException, InputException;
 	
-	Comment findCommentById(Long id) throws DatabaseException;
+	Comment selectCommentById(Long id) throws DatabaseException;
 	
-	List<Comment> findComments() throws DatabaseException;
+	List<Comment> selectComments() throws DatabaseException;
 	
-	List<Comment> findCommentsByArticleId(Long articleId) throws DatabaseException;
+	List<Comment> selectCommentsByArticleId(Long articleId) throws DatabaseException;
 	
 	Boolean removeComment(Long id) throws DatabaseException;
 }

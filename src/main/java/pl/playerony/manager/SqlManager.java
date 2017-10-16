@@ -108,7 +108,7 @@ public class SqlManager {
 					row[i-1] = resultSet.getObject(i);
 			
 			if(resultSet.next())
-				throw new DatabaseException("There exist more than one unique value with ID");
+				throw new DatabaseException("There's more than one unique value with this ID");
 		} catch (SQLException e) {
 			throw new DatabaseException("Error database connection failed", e);
 		} finally {
@@ -127,7 +127,7 @@ public class SqlManager {
 				isGood = true;
 			
 			if(resultSet.next())
-				throw new DatabaseException("There exist more than one unique value with ID");
+				throw new DatabaseException("There's more than one unique value with this ID");
 		} catch (SQLException e) {
 			throw new DatabaseException("Error database connection failed", e);
 		} finally {
@@ -145,7 +145,7 @@ public class SqlManager {
 			resultSetMetaData = resultSet.getMetaData();
 			columnsNumber = resultSetMetaData.getColumnCount();
 		} catch (SQLException e) {
-			throw new DatabaseException("Some problems by getColumnNumber ", e);
+			throw new DatabaseException("Some problems in getColumnNumber method", e);
 		}
 		
 		return columnsNumber;

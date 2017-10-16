@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public Boolean insertUser(User newUser) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("roles", newUser.getRoleId()))
-			throw new DatabaseException("This roleId[" + newUser.getRoleId() + "] dont exist in roles table");
+			throw new DatabaseException("This roleId[" + newUser.getRoleId() + "] doesnt exist in roles table");
 		
 		UserValidate.checkUser(newUser);
 		
@@ -44,10 +44,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public Boolean updateUser(Long id, User user) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("users", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in users table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in users table");
 		
 		if(!sqlUtil.checkId("roles", user.getRoleId()))
-			throw new DatabaseException("This roleId[" + user.getRoleId() + "] dont exist in roles table");
+			throw new DatabaseException("This roleId[" + user.getRoleId() + "] doesnt exist in roles table");
 		
 		UserValidate.checkUser(user);
 		
@@ -68,9 +68,9 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User findUserById(Long id) throws DatabaseException {
+	public User selectUserById(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("users", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in users table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in users table");
 		
 		String sql = "SELECT * "
 				   + "	FROM users "
@@ -84,12 +84,12 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public List<User> findUsers() throws DatabaseException {
+	public List<User> selectUsers() throws DatabaseException {
 		String sql = "SELECT * "
 				   + "	FROM users";
 		
-		List<User> users = ConvertList.castListOfObjectsToUsers(sqlManager.createQuery(sql)
-															              .getExecuteList());
+		List<User> users = ConvertList.castObjectArrayToUserList(sqlManager.createQuery(sql)
+															               .getExecuteList());
 		
 		return users;
 	}
@@ -97,7 +97,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public Boolean removeUser(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("users", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in users table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in users table");
 		
 		String sql = "DELETE FROM users "
 				   + "	WHERE id = ?";

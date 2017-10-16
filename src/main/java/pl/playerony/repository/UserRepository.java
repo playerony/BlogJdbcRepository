@@ -11,9 +11,9 @@ public interface UserRepository {
 	
 	Boolean updateUser(Long id, User user) throws DatabaseException, InputException;
 	
-	User findUserById(Long id) throws DatabaseException;
+	User selectUserById(Long id) throws DatabaseException;
 	
-	List<User> findUsers() throws DatabaseException;
+	List<User> selectUsers() throws DatabaseException;
 	
 	Boolean removeUser(Long id) throws DatabaseException;
 }

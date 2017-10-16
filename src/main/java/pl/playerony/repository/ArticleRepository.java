@@ -11,9 +11,9 @@ public interface ArticleRepository {
 	
 	Boolean updateArticle(Long id, Article article) throws DatabaseException, InputException;
 	
-	Article findArticleById(Long id) throws DatabaseException;
+	Article selectArticleById(Long id) throws DatabaseException;
 	
-	List<Article> findArticles() throws DatabaseException;
+	List<Article> selectArticles() throws DatabaseException;
 	
 	Boolean removeArticle(Long id) throws DatabaseException;
 }

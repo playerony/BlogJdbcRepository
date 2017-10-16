@@ -1,5 +1,7 @@
 package pl.playerony.repository.impl;
 
+import java.util.List;
+
 import pl.playerony.exception.DatabaseException;
 import pl.playerony.exception.InputException;
 import pl.playerony.manager.SqlManager;
@@ -7,6 +9,7 @@ import pl.playerony.model.impl.Role;
 import pl.playerony.model.validation.RoleValidate;
 import pl.playerony.repository.RoleRepository;
 import pl.playerony.util.SqlUtil;
+import pl.playerony.util.converter.ConvertList;
 
 public class RoleRepositoryImpl implements RoleRepository {
 	private SqlManager sqlManager;
@@ -32,11 +35,30 @@ public class RoleRepositoryImpl implements RoleRepository {
 		
 		return result > 0;
 	}
-
+	
 	@Override
-	public Role findRoleById(Long id) throws DatabaseException {
+	public Boolean updateRole(Long id, Role role) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("roles", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in roles table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in roles table");
+					
+		RoleValidate.checkRole(role);
+		
+		String sql = "UPDATE roles "
+				   + "	SET name = ?, "
+				   + " WHERE id = ?";
+		
+		Integer result = sqlManager.createQuery(sql)
+								   .setParameter(role.getName())
+								   .setParameter(id)
+								   .executeQuery();
+		
+		return result > 0;
+	}
+		
+	@Override
+	public Role selectRoleById(Long id) throws DatabaseException {
+		if(!sqlUtil.checkId("roles", id))
+			throw new DatabaseException("This id[" + id + "] doesnt exist in roles table");
 		
 		String sql = "SELECT * FROM roles "
 				   + "WHERE id = ?";
@@ -47,11 +69,22 @@ public class RoleRepositoryImpl implements RoleRepository {
 		
 		return role;
 	}
+	
+	@Override
+	public List<Role> selectRoles() throws DatabaseException {
+		String sql = "SELECT * "
+				   + "	FROM roles";
+		
+		List<Role> roles = ConvertList.castObjectArrayToRoleList(sqlManager.createQuery(sql)
+															              .getExecuteList());
+		
+		return roles;
+	}
 
 	@Override
 	public Boolean removeRole(Long id) throws DatabaseException {
 		if(!sqlUtil.checkId("roles", id))
-			throw new DatabaseException("This id[" + id + "] dont exist in roles table");
+			throw new DatabaseException("This id[" + id + "] doesnt exist in roles table");
 		
 		String sql = "DELETE FROM roles "
 				   + "	WHERE id = ?";
