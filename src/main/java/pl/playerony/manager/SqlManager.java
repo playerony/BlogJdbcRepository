@@ -157,4 +157,8 @@ public class SqlManager {
 		Connector.closeConnection(connection);
 	}
 	
+	public ResultSet getResultSet() {
+		return resultSet;
+	}
+	
 }

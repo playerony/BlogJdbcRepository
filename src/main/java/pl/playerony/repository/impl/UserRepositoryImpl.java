@@ -58,9 +58,9 @@ public class UserRepositoryImpl implements UserRepository {
 		UserValidate.checkUser(user);
 		
 		String sql = "UPDATE users "
-				   + "	SET login = ?, "
-				   + "		password = ? "
-				   + "		roleId = ? "
+				   + "	 SET login = ?, "
+				   + "	 	 password = ? "
+				   + "	   	 roleId = ? "
 				   + " WHERE id = ?";
 		
 		Integer result = sqlManager.createQuery(sql)
