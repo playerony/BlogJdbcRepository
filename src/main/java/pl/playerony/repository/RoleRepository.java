@@ -7,7 +7,7 @@ import pl.playerony.exception.InputException;
 import pl.playerony.model.impl.Role;
 
 public interface RoleRepository {
-	Boolean insertRole(Role newRole) throws DatabaseException, InputException;
+	Role insertRole(Role newRole) throws DatabaseException, InputException;
 	
 	Boolean updateRole(Long id, Role role) throws DatabaseException, InputException;
 

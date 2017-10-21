@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class SqlManager {
 		connection = Connector.connect();
 
 		try {
-			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			throw new DatabaseException("Cannot create prepareStatement", e);
 		}
@@ -59,6 +60,29 @@ public class SqlManager {
 		return this;
 	}
 
+	public Long executeQueryWithGenereateKey() throws DatabaseException {
+		ResultSet generatedKeys;
+		Long result = null;
+
+		try {
+			preparedStatement.executeUpdate();
+			
+			generatedKeys = preparedStatement.getGeneratedKeys();
+			
+			if(generatedKeys.next())
+				result = generatedKeys.getLong(1);
+			
+			if(generatedKeys.next())
+				throw new DatabaseException("There is more than one generated key");
+		} catch (SQLException e) {
+			throw new DatabaseException("Some problems by executeUpdate", e);
+		} finally {
+			close();
+		}
+
+		return result; 
+	}
+	
 	public Integer executeQuery() throws DatabaseException {
 		Integer value = 0;
 
@@ -151,14 +175,14 @@ public class SqlManager {
 		return columnsNumber;
 	}
 
-	private void close() throws DatabaseException {
+	public void close() throws DatabaseException {
 		JdbcUtil.closeResultSet(resultSet);
 		JdbcUtil.closeStatement(preparedStatement);
 		Connector.closeConnection(connection);
 	}
 	
-	public ResultSet getResultSet() {
-		return resultSet;
+	public ResultSet getResultSet() throws DatabaseException {
+		return JdbcUtil.getResultSet(preparedStatement);
 	}
 	
 }

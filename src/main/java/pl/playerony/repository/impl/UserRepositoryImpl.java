@@ -21,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	
 	@Override
-	public Boolean insertUser(User newUser) throws DatabaseException, InputException {
+	public User insertUser(User newUser) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("roles", newUser.getRoleId()))
 			throw new DatabaseException("This roleId[" + newUser.getRoleId() + "] doesnt exist in roles table");
 		
@@ -34,14 +34,16 @@ public class UserRepositoryImpl implements UserRepository {
 				   + "	users(id, login, password, roleId) "
 				   + " VALUES(?, ?, ?, ?)";
 		
-		Integer result = sqlManager.createQuery(sql)
-								   .setParameter(newUser.getId())
-								   .setParameter(newUser.getLogin())
-								   .setParameter(newUser.getPassword())
-								   .setParameter(newUser.getRoleId())
-								   .executeQuery();
+		Long result = sqlManager.createQuery(sql)
+								.setParameter(newUser.getId())
+								.setParameter(newUser.getLogin())
+								.setParameter(newUser.getPassword())
+								.setParameter(newUser.getRoleId())
+								.executeQueryWithGenereateKey();
 		
-		return result > 0;
+		newUser.setId(result);
+		
+		return newUser;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import pl.playerony.exception.InputException;
 import pl.playerony.model.impl.Article;
 
 public interface ArticleRepository {
-	Boolean insertArticle(Article newArticle) throws DatabaseException, InputException;
+	Article insertArticle(Article newArticle) throws DatabaseException, InputException;
 	
 	Boolean updateArticle(Long id, Article article) throws DatabaseException, InputException;
 	

@@ -7,7 +7,7 @@ import pl.playerony.exception.InputException;
 import pl.playerony.model.impl.Comment;
 
 public interface CommentRepository {
-	Boolean insertComment(Comment newComment) throws DatabaseException, InputException;
+	Comment insertComment(Comment newComment) throws DatabaseException, InputException;
 	
 	Boolean updateComment(Long id, Comment comment) throws DatabaseException, InputException;
 	

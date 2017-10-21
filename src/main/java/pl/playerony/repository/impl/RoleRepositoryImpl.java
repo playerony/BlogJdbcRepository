@@ -21,7 +21,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 	}
 	
 	@Override
-	public Boolean insertRole(Role newRole) throws DatabaseException, InputException {
+	public Role insertRole(Role newRole) throws DatabaseException, InputException {
 		if(sqlUtil.checkStringValue("roles", "name", newRole.getName()))
 			throw new DatabaseException("This name of role[" + newRole.getName() + "] already exist in roles table");
 		
@@ -31,12 +31,14 @@ public class RoleRepositoryImpl implements RoleRepository {
 				   + "	roles(id, name) "
 				   + " VALUES(?, ?)";
 		
-		Integer result = sqlManager.createQuery(sql)
-								   .setParameter(newRole.getId())
-								   .setParameter(newRole.getName())
-								   .executeQuery();
+		Long result = sqlManager.createQuery(sql)
+								.setParameter(newRole.getId())
+								.setParameter(newRole.getName())
+								.executeQueryWithGenereateKey();
 		
-		return result > 0;
+		newRole.setId(result);
+		
+		return newRole;
 	}
 	
 	@Override

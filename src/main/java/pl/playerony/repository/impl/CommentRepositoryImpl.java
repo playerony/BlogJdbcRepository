@@ -20,7 +20,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 	}
 	
 	@Override
-	public Boolean insertComment(Comment newComment) throws DatabaseException, InputException {
+	public Comment insertComment(Comment newComment) throws DatabaseException, InputException {
 		if(!sqlUtil.checkId("articles", newComment.getArticleId()))
 			throw new DatabaseException("This articleId[" + newComment.getArticleId() + "] doesnt exist in articles table");
 		
@@ -31,16 +31,18 @@ public class CommentRepositoryImpl implements CommentRepository {
 				   + "	comments(id, content, articleId, userId, likes, dislikes) "
 				   + " VALUES(?, ?, ?, ?, ?, ?)";
 		
-		Integer result = sqlManager.createQuery(sql)
-								   .setParameter(newComment.getId())
-								   .setParameter(newComment.getContent())
-								   .setParameter(newComment.getArticleId())
-								   .setParameter(newComment.getUserId())
-								   .setParameter(newComment.getLikes())
-								   .setParameter(newComment.getDislikes())
-								   .executeQuery();
+		Long result = sqlManager.createQuery(sql)
+								.setParameter(newComment.getId())
+								.setParameter(newComment.getContent())
+								.setParameter(newComment.getArticleId())
+								.setParameter(newComment.getUserId())
+								.setParameter(newComment.getLikes())
+								.setParameter(newComment.getDislikes())
+								.executeQueryWithGenereateKey();
 		
-		return result > 0;
+		newComment.setId(result);
+		
+		return newComment;
 	}
 
 	@Override
