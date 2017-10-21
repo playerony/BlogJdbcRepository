@@ -13,6 +13,10 @@ public interface UserRepository {
 	
 	User selectUserById(Long id) throws DatabaseException;
 	
+	Boolean checkUserByLoginAndPassword(String login, String password) throws DatabaseException;
+	
+	User selectUserByLoginAndPassword(String login, String password) throws DatabaseException;
+	
 	List<User> selectUsers() throws DatabaseException;
 	
 	Boolean removeUser(Long id) throws DatabaseException;

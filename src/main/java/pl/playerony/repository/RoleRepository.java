@@ -13,6 +13,10 @@ public interface RoleRepository {
 
 	Role selectRoleById(Long id) throws DatabaseException;
 	
+	Role selectRoleByName(String name) throws DatabaseException;
+	
+	Boolean checkRoleByName(String name) throws DatabaseException;
+	
 	List<Role> selectRoles() throws DatabaseException;
 	
 	Boolean removeRole(Long id) throws DatabaseException;

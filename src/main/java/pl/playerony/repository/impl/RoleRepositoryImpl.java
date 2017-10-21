@@ -28,7 +28,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 		RoleValidate.checkRole(newRole);
 		
 		String sql = "INSERT INTO "
-				   + "	roles(id, name) "
+				   + " roles (id, name) "
 				   + " VALUES(?, ?)";
 		
 		Long result = sqlManager.createQuery(sql)
@@ -68,14 +68,44 @@ public class RoleRepositoryImpl implements RoleRepository {
 		if(!sqlUtil.checkId("roles", id))
 			throw new DatabaseException("This id[" + id + "] doesnt exist in roles table");
 		
-		String sql = "SELECT * FROM roles "
-				   + "WHERE id = ?";
+		String sql = "SELECT * "
+				   + "  FROM roles "
+				   + " WHERE id = ?";
 		
 		Role role = new Role(sqlManager.createQuery(sql)
 									   .setParameter(id)
 									   .getSingleValue());
 		
 		return role;
+	}
+	
+	@Override
+	public Role selectRoleByName(String name) throws DatabaseException {
+		if(!sqlUtil.checkStringValue("roles", "name", name))
+			throw new DatabaseException("This name of role[" + name + "] doesnt exist in roles table");
+		
+		String sql = "SELECT * "
+				   + "  FROM roles "
+				   + " WHERE name = ?";
+		
+		Role role = new Role(sqlManager.createQuery(sql)
+									   .setParameter(name)
+									   .getSingleValue());
+		
+		return role;
+	}
+	
+	@Override
+	public Boolean checkRoleByName(String name) throws DatabaseException {
+		String sql = "SELECT * "
+				   + "	FROM roles "
+				   + " WHERE name = ?";
+		
+		Boolean result = sqlManager.createQuery(sql)
+									   .setParameter(name)
+									   .isExist();
+		
+		return result;
 	}
 	
 	@Override

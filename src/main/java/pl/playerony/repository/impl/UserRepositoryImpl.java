@@ -90,6 +90,36 @@ public class UserRepositoryImpl implements UserRepository {
 		
 		return user;
 	}
+	
+	@Override
+	public Boolean checkUserByLoginAndPassword(String login, String password) throws DatabaseException {
+		String sql = "SELECT * "
+				   + "	FROM users "
+				   + " WHERE login = ? "
+				   + "	 AND password = ? ";
+		
+		Boolean result = sqlManager.createQuery(sql)
+								   .setParameter(login)
+								   .setParameter(password)
+								   .isExist();
+		
+		return result;
+	}
+	
+	@Override
+	public User selectUserByLoginAndPassword(String login, String password) throws DatabaseException {
+		String sql = "SELECT * "
+				   + "	FROM users "
+				   + " WHERE login = ? "
+				   + "	 AND password = ? ";
+		
+		User user = new User(sqlManager.createQuery(sql)
+								       .setParameter(login)
+								       .setParameter(password)
+								       .getSingleValue());
+		
+		return user;
+	}
 
 	@Override
 	public List<User> selectUsers() throws DatabaseException {
