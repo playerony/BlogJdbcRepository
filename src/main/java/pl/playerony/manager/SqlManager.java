@@ -106,10 +106,12 @@ public class SqlManager {
 		
 		try {
 			while (resultSet.next()) {
-				for(int i = 1 ; i<=columnsNumber ; i++)
+				for(int i = 1 ; i<=columnsNumber ; i++) {
 					row[i-1] = resultSet.getObject(i);
+				}
 
 				result.add(row);
+				row = new Object[columnsNumber];
 			}
 		} catch (SQLException e) {
 			throw new DatabaseException("Error database connection failed", e);

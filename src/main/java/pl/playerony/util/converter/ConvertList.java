@@ -3,10 +3,12 @@ package pl.playerony.util.converter;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.playerony.model.Converter;
 import pl.playerony.model.impl.Article;
 import pl.playerony.model.impl.Comment;
 import pl.playerony.model.impl.Role;
 import pl.playerony.model.impl.User;
+import pl.playerony.util.GenericClass;
 
 public class ConvertList {
 	public static List<Role> castObjectArrayToRoleList(List<Object[]> objectArray) {

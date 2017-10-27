@@ -113,8 +113,10 @@ public class CommentRepositoryImpl implements CommentRepository {
 				   + " WHERE articleId = ?";
 		
 		List<Comment> comments = ConvertList.castObjectArrayToCommentList(sqlManager.createQuery(sql)
-																				    .setParameter(articleId)
+																			    	.setParameter(articleId)
 															              		    .getExecuteList());
+		
+		System.out.println(comments.size());
 		
 		return comments;
 	}

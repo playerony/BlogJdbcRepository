@@ -116,6 +116,8 @@ public class RoleRepositoryImpl implements RoleRepository {
 		List<Role> roles = ConvertList.castObjectArrayToRoleList(sqlManager.createQuery(sql)
 															               .getExecuteList());
 		
+		roles.forEach(e -> System.out.println(e.toString()));
+		
 		return roles;
 	}
 

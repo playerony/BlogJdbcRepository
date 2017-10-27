@@ -61,27 +61,27 @@ public class RoleRepositoryTest {
 //			e.printStackTrace();
 //		}
 //	}
-//	
-//	@Test
-//	public void testSelectRoles() {
-//		try {
-//			List<Role> roles = roleRepository.selectRoles();
-//			
-//			roles.forEach(e -> System.out.println(e.toString()));
-//		} catch (DatabaseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 	
 	@Test
-	public void testRemoveRole() {
+	public void testSelectRoles() {
 		try {
-			roleRepository.removeRole(4L);
+			List<Role> roles = roleRepository.selectRoles();
+			
+			roles.forEach(e -> System.out.println(e.toString()));
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+//	@Test
+//	public void testRemoveRole() {
+//		try {
+//			roleRepository.removeRole(4L);
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 }
