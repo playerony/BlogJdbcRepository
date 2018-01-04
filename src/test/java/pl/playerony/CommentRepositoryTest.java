@@ -21,7 +21,7 @@ public class CommentRepositoryTest {
 	
 //	@Test
 //	public void testInsertComment() {
-//		Comment comment = new Comment("Jebany test", 1L, 1L, 6, 9);
+//		Comment comment = new Comment("Tescik xD", 6L, 2L, 6, 1);
 //		
 //		try {
 //			commentRepository.insertComment(comment);
@@ -36,10 +36,10 @@ public class CommentRepositoryTest {
 //	
 //	@Test
 //	public void testUpdateComment() {
-//		Comment comment = new Comment("Jebany test", 1L, 1L, 9, 6);
+//		Comment comment = new Comment("xDx", 15L, 2L, 5, 5);
 //		
 //		try {
-//			commentRepository.updateComment(1L, comment);
+//			commentRepository.updateComment(2L, comment);
 //		} catch (DatabaseException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -52,7 +52,7 @@ public class CommentRepositoryTest {
 //	@Test
 //	public void testSelectCommentById() {
 //		try {
-//			Comment comment = commentRepository.selectCommentById(1L);
+//			Comment comment = commentRepository.selectCommentById(2L);
 //			
 //			System.out.println(comment.toString());
 //		} catch (DatabaseException e) {
@@ -64,7 +64,20 @@ public class CommentRepositoryTest {
 //	@Test
 //	public void testSelectCommentsByArticleId() {
 //		try {
-//			List<Comment> comments = commentRepository.selectCommentsByArticleId(1L);
+//			List<Comment> comments = commentRepository.selectCommentsByArticleId(6L);
+//			
+//			comments.forEach(e -> System.out.println(e.toString()));
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	@Test
+//	public void testSelectComments() {
+//		try {
+//			List<Comment> comments = commentRepository.selectComments();
+//			System.out.println(comments.size());
 //			
 //			comments.forEach(e -> System.out.println(e.toString()));
 //		} catch (DatabaseException e) {
@@ -74,26 +87,13 @@ public class CommentRepositoryTest {
 //	}
 	
 	@Test
-	public void testSelectComments() {
+	public void testRemoveComment() {
 		try {
-			List<Comment> comments = commentRepository.selectComments();
-			System.out.println(comments.size());
-			
-			comments.forEach(e -> System.out.println(e.toString()));
+			commentRepository.removeComment(1L);
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-//	@Test
-//	public void testRemoveComment() {
-//		try {
-//			commentRepository.removeComment(1L);
-//		} catch (DatabaseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 	
 }

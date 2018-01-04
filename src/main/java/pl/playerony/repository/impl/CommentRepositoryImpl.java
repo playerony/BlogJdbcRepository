@@ -27,9 +27,8 @@ public class CommentRepositoryImpl implements CommentRepository {
 		if(!sqlUtil.checkId("users", newComment.getUserId()))
 			throw new DatabaseException("This userId[" + newComment.getUserId() + "] doesnt exist in users table");
 		
-		String sql = "INSERT INTO "
-				   + "	comments(id, content, articleId, userId, likes, dislikes) "
-				   + " VALUES(?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO comments(id, content, articleId, userId, likes, dislikes) "
+				   + " 			  VALUES(?, ?, ?, ?, ?, ?)";
 		
 		Long result = sqlManager.createQuery(sql)
 								.setParameter(newComment.getId())
@@ -57,11 +56,11 @@ public class CommentRepositoryImpl implements CommentRepository {
 			throw new DatabaseException("This userId[" + comment.getUserId() + "] doesnt exist in users table");
 		
 		String sql = "UPDATE comments "
-				   + "	SET content = ?, "
-				   + "		articleId = ? "
-				   + "		userId = ? "
-				   + "		likes = ? "
-				   + "		dislikes = ? "
+				   + "	 SET content = ?, "
+				   + "	 	 articleId = ?, "
+				   + "	 	 userId = ?, "
+				   + "		 likes = ?, "
+				   + "		 dislikes = ? "
 				   + " WHERE id = ?";
 		
 		Integer result = sqlManager.createQuery(sql)
@@ -71,7 +70,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 								   .setParameter(comment.getLikes())
 								   .setParameter(comment.getDislikes())
 								   .setParameter(id)
-								   .executeQuery();
+								   .executeUpdate();
 		
 		return result > 0;
 	}
@@ -81,9 +80,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 		if(!sqlUtil.checkId("comments", id))
 			throw new DatabaseException("This id[" + id + "] doesnt exist in comments table");
 		
-		String sql = "SELECT * "
+		String sql = "SELECT id, content, articleId, userId, likes, dislikes "
 				   + "	FROM comments "
-				   + " WHERE id = ?";
+				   + " WHERE id = ? ";
 		
 		Comment comment = new Comment(sqlManager.createQuery(sql)
 												.setParameter(id)
@@ -94,7 +93,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
 	@Override
 	public List<Comment> selectComments() throws DatabaseException {
-		String sql = "SELECT * "
+		String sql = "SELECT id, content, articleId, userId, likes, dislikes "
 				   + "	FROM comments";
 		
 		List<Comment> comments = ConvertList.castObjectArrayToCommentList(sqlManager.createQuery(sql)
@@ -108,15 +107,13 @@ public class CommentRepositoryImpl implements CommentRepository {
 		if(!sqlUtil.checkId("articles", articleId))
 			throw new DatabaseException("This articleId[" + articleId + "] doesnt exist in comments table");
 		
-		String sql = "SELECT * "
+		String sql = "SELECT id, content, articleId, userId, likes, dislikes "
 				   + "	FROM comments "
 				   + " WHERE articleId = ?";
 		
 		List<Comment> comments = ConvertList.castObjectArrayToCommentList(sqlManager.createQuery(sql)
 																			    	.setParameter(articleId)
 															              		    .getExecuteList());
-		
-		System.out.println(comments.size());
 		
 		return comments;
 	}
