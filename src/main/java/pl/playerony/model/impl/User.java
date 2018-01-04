@@ -8,12 +8,13 @@ public class User implements Converter {
 	private String password;
 	private Long roleId;
 	
-	public User(Long id, String login, String password, Long roleId) {
+	public User() {
 		super();
-		this.id = id;
-		this.login = login;
-		this.password = password;
-		this.roleId = roleId;
+	}
+	
+	public User(Object[] objectArray) {
+		super();
+		convert(objectArray);
 	}
 	
 	public User(String login, String password, Long roleId) {
@@ -23,9 +24,12 @@ public class User implements Converter {
 		this.roleId = roleId;
 	}
 	
-	public User(Object[] objectArray) {
+	public User(Long id, String login, String password, Long roleId) {
 		super();
-		convert(objectArray);
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.roleId = roleId;
 	}
 	
 	/**

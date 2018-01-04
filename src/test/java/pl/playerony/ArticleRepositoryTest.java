@@ -21,7 +21,7 @@ public class ArticleRepositoryTest {
 	
 	@Test
 	public void testInsertArticle() {
-		Article article = new Article("Testowy", "Testowy artykuł", 1L);
+		Article article = new Article(0L, "Testowy 3", "Testowy artykuł 3", 1L);
 		
 		try {
 			articleRepository.insertArticle(article);
@@ -34,53 +34,53 @@ public class ArticleRepositoryTest {
 		}
 	}
 	
-	@Test
-	public void testUpdateArticle() {
-		Article article = new Article("Testowy1", "Testowy artykuł1", 1L);
-		
-		try {
-			articleRepository.updateArticle(1L, article);
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testUpdateArticle() {
+//		Article article = new Article("Testowy1", "Testowy artykuł1", 1L);
+//		
+//		try {
+//			articleRepository.updateArticle(1L, article);
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InputException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
-	@Test
-	public void testSelectArticle() {
-		try {
-			Article article = articleRepository.selectArticleById(1L);
-			
-			System.out.println(article.toString());
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testSelectArticle() {
+//		try {
+//			Article article = articleRepository.selectArticleById(1L);
+//			
+//			System.out.println(article.toString());
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
-	@Test
-	public void testSelectArticles() {
-		try {
-			List<Article> articles = articleRepository.selectArticles();
-			
-			articles.forEach(e -> System.out.println(e.toString()));
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testRemoveArticle() {
-		try {
-			articleRepository.removeArticle(1L);
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testSelectArticles() {
+//		try {
+//			List<Article> articles = articleRepository.selectArticles();
+//			
+//			articles.forEach(e -> System.out.println(e.toString()));
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	@Test
+//	public void testRemoveArticle() {
+//		try {
+//			articleRepository.removeArticle(1L);
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 }

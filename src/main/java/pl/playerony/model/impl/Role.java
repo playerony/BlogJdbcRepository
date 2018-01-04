@@ -22,6 +22,10 @@ public class Role implements Converter {
 		convert(objectArray);
 	}
 	
+	public Role() {
+		super();
+	}
+
 	/**
 	 * 
 	 * Getters

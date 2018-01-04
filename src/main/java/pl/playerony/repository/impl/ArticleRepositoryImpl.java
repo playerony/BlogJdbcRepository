@@ -22,8 +22,6 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 	
 	@Override
 	public Article insertArticle(Article newArticle) throws DatabaseException, InputException {
-		if(!sqlUtil.checkId("users", newArticle.getUserId()))
-			throw new DatabaseException("This userId[" + newArticle.getUserId() + "] doesnt exist in users table");
 		
 		ArticleValidate.checkArticle(newArticle);
 		
@@ -31,26 +29,18 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 				   + "	articles(id, title, content, userId) "
 				   + " VALUES(?, ?, ?, ?)";
 		
-		Long result = sqlManager.createQuery(sql)
+		sqlManager.createQuery(sql)
 								.setParameter(newArticle.getId())
 								.setParameter(newArticle.getTitle())
 								.setParameter(newArticle.getContent())
 								.setParameter(newArticle.getUserId())
-								.executeQueryWithGenereateKey();
-		
-		newArticle.setId(result);
+								.executeUpdate();
 		
 		return newArticle;
 	}
 
 	@Override
 	public Boolean updateArticle(Long id, Article article) throws DatabaseException, InputException {
-		if(!sqlUtil.checkId("articles", id))
-			throw new DatabaseException("This id[" + id + "] doesnt exist in articles table");
-		
-		if(!sqlUtil.checkId("users", article.getUserId()))
-			throw new DatabaseException("This userId[" + article.getUserId() + "] doesnt exist in users table");
-		
 		ArticleValidate.checkArticle(article);
 		
 		String sql = "UPDATE articles "

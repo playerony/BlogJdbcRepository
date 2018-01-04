@@ -8,6 +8,10 @@ public class Article implements Converter {
 	private String content;
 	private Long userId;
 	
+	public Article() {
+		
+	}
+	
 	public Article(Long id, String title, String content, Long userId) {
 		super();
 		this.id = id;

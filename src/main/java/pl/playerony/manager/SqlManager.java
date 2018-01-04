@@ -96,6 +96,20 @@ public class SqlManager {
 
 		return value; 
 	}
+	
+	public Integer executeUpdate() throws DatabaseException {
+		Integer value = 0;
+
+		try {
+			value = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DatabaseException("Some problems by query executing", e);
+		} finally {
+			close();
+		}
+
+		return value; 
+	}
 
 	public List<Object[]> getExecuteList() throws DatabaseException{
 		resultSet = JdbcUtil.getResultSet(preparedStatement);
@@ -110,7 +124,9 @@ public class SqlManager {
 					row[i-1] = resultSet.getObject(i);
 				}
 
-				result.add(row);
+				if(!isEmptyObjectArray(row))
+					result.add(row);
+				
 				row = new Object[columnsNumber];
 			}
 		} catch (SQLException e) {
@@ -119,7 +135,7 @@ public class SqlManager {
 			close();
 		}
 		
-		return result;
+		return result.size() > 0 ? result : null;
 	}
 	
 	public Object[] getSingleValue() throws DatabaseException {
@@ -141,7 +157,18 @@ public class SqlManager {
 			close();
 		}
 		
-		return row;
+		return !isEmptyObjectArray(row) ? row : null;
+	}
+	
+	private boolean isEmptyObjectArray(Object[] array) {
+		if(array == null)
+			return true;
+		
+		for(int i=0 ; i<array.length ; i++)
+			if(array[i] != null)
+				return false;
+		
+		return true;
 	}
 	
 	public Boolean isExist() throws DatabaseException {

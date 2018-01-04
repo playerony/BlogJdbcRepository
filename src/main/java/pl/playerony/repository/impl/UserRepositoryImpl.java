@@ -61,16 +61,16 @@ public class UserRepositoryImpl implements UserRepository {
 		
 		String sql = "UPDATE users "
 				   + "	 SET login = ?, "
-				   + "	 	 password = ? "
+				   + "	 	 password = ?, "
 				   + "	   	 roleId = ? "
-				   + " WHERE id = ?";
+				   + " WHERE id = ? ";
 		
 		Integer result = sqlManager.createQuery(sql)
 								   .setParameter(user.getLogin())
 								   .setParameter(user.getPassword())
 								   .setParameter(user.getRoleId())
 								   .setParameter(id)
-								   .executeQuery();
+								   .executeUpdate();
 		
 		return result > 0;
 	}
@@ -80,7 +80,7 @@ public class UserRepositoryImpl implements UserRepository {
 		if(!sqlUtil.checkId("users", id))
 			throw new DatabaseException("This id[" + id + "] doesnt exist in users table");
 		
-		String sql = "SELECT * "
+		String sql = "SELECT id, login, password, roleId "
 				   + "	FROM users "
 				   + " WHERE id = ?";
 		
@@ -92,38 +92,26 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	
 	@Override
-	public Boolean checkUserByLoginAndPassword(String login, String password) throws DatabaseException {
-		String sql = "SELECT * "
+	public User selectUserByLogin(String login) throws DatabaseException {
+		String sql = "SELECT id, login, password, roleId "
 				   + "	FROM users "
-				   + " WHERE login = ? "
-				   + "	 AND password = ? ";
+				   + " WHERE login = ? ";
 		
-		Boolean result = sqlManager.createQuery(sql)
-								   .setParameter(login)
-								   .setParameter(password)
-								   .isExist();
+		Object[] objectArray = sqlManager.createQuery(sql)
+			       .setParameter(login)
+			       .getSingleValue();
 		
-		return result;
-	}
-	
-	@Override
-	public User selectUserByLoginAndPassword(String login, String password) throws DatabaseException {
-		String sql = "SELECT * "
-				   + "	FROM users "
-				   + " WHERE login = ? "
-				   + "	 AND password = ? ";
+		User user = null;
 		
-		User user = new User(sqlManager.createQuery(sql)
-								       .setParameter(login)
-								       .setParameter(password)
-								       .getSingleValue());
+		if(objectArray != null)
+			user = new User(objectArray);
 		
 		return user;
 	}
 
 	@Override
 	public List<User> selectUsers() throws DatabaseException {
-		String sql = "SELECT * "
+		String sql = "SELECT id, login, password, roleId "
 				   + "	FROM users";
 		
 		List<User> users = ConvertList.castObjectArrayToUserList(sqlManager.createQuery(sql)

@@ -19,27 +19,27 @@ public class UserRepositoryTest {
 		userRepository = new UserRepositoryImpl();
 	}
 	
-	@Test
-	public void testInsertUser() {
-		User user = new User("admin", "admin", 3L);
-		
-		try {
-			userRepository.insertUser(user); 
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testInsertUser() {
+//		User user = new User("user", "user", 2L);
+//		
+//		try {
+//			userRepository.insertUser(user); 
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InputException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 	@Test
 	public void testUpdateUser() {
-		User user = new User("admin1", "admin1", 1L);
+		User user = new User(2L, "user", "user", 2L);
 		
 		try {
-			userRepository.updateUser(1L, user);
+			userRepository.updateUser(user.getId(), user);
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,38 +49,56 @@ public class UserRepositoryTest {
 		}
 	}
 	
-	@Test
-	public void testSelectUser() {
-		try {
-			User user = userRepository.selectUserById(1L);
-			
-			System.out.println(user.toString());
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testSelectUserById() {
+//		try {
+//			User user = userRepository.selectUserById(1L);
+//			
+//			System.out.println("Selected user by id: " + user.toString());
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
-	@Test
-	public void testSelectUsers() {
-		try {
-			List<User> users = userRepository.selectUsers();
-			
-			users.forEach(e -> System.out.println(e.toString()));
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testSelectUserByLogin() {
+//		try {
+//			User user = userRepository.selectUserByLogin("admin");
+//			
+//			if(user != null)
+//				System.out.println("Selected user by login: " + user.toString());
+//			else
+//				System.out.println("Użytkownik nie istnieje");
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
-	@Test
-	public void testRemoveUser() {
-		try {
-			userRepository.removeUser(2L);
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testSelectUsers() {
+//		try {
+//			List<User> users = userRepository.selectUsers();
+//			
+//			if(users != null)
+//				users.forEach(e -> System.out.println(e.toString()));
+//			else
+//				System.out.println("There arent any user");
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	@Test
+//	public void testRemoveUser() {
+//		try {
+//			userRepository.removeUser(3L);
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 }
