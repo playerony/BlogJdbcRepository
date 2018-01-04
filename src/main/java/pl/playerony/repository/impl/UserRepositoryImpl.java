@@ -30,16 +30,15 @@ public class UserRepositoryImpl implements UserRepository {
 		
 		UserValidate.checkUser(newUser);
 		
-		String sql = "INSERT INTO "
-				   + "	users(id, login, password, roleId) "
-				   + " VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO users(id, login, password, roleId) "
+				   + " 			  VALUES(?, ?, ?, ?)";
 		
 		Long result = sqlManager.createQuery(sql)
 								.setParameter(newUser.getId())
 								.setParameter(newUser.getLogin())
 								.setParameter(newUser.getPassword())
 								.setParameter(newUser.getRoleId())
-								.executeQueryWithGenereateKey();
+								.executeUpdateWithGenereateKey();
 		
 		newUser.setId(result);
 		

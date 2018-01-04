@@ -27,14 +27,13 @@ public class RoleRepositoryImpl implements RoleRepository {
 		
 		RoleValidate.checkRole(newRole);
 		
-		String sql = "INSERT INTO "
-				   + " roles (id, name) "
-				   + " VALUES(?, ?)";
+		String sql = "INSERT INTO roles (id, name) "
+				   + " 			  VALUES(?, ?)";
 		
 		Long result = sqlManager.createQuery(sql)
 								.setParameter(newRole.getId())
 								.setParameter(newRole.getName())
-								.executeQueryWithGenereateKey();
+								.executeUpdateWithGenereateKey();
 		
 		newRole.setId(result);
 		
@@ -52,7 +51,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 		RoleValidate.checkRole(role);
 		
 		String sql = "UPDATE roles "
-				   + "	SET name = ?, "
+				   + "   SET name = ? "
 				   + " WHERE id = ?";
 		
 		Integer result = sqlManager.createQuery(sql)

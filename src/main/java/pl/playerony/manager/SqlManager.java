@@ -60,7 +60,7 @@ public class SqlManager {
 		return this;
 	}
 
-	public Long executeQueryWithGenereateKey() throws DatabaseException {
+	public Long executeUpdateWithGenereateKey() throws DatabaseException {
 		ResultSet generatedKeys;
 		Long result = null;
 

@@ -38,7 +38,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 								.setParameter(newComment.getUserId())
 								.setParameter(newComment.getLikes())
 								.setParameter(newComment.getDislikes())
-								.executeQueryWithGenereateKey();
+								.executeUpdateWithGenereateKey();
 		
 		newComment.setId(result);
 		

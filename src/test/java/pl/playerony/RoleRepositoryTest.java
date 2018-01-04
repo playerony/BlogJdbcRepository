@@ -37,10 +37,10 @@ public class RoleRepositoryTest {
 //	
 //	@Test
 //	public void testUpdateRole() {
-//		Role role = new Role("USER");
+//		Role role = new Role("xd");
 //		
 //		try {
-//			roleRepository.updateRole(1L, role);
+//			roleRepository.updateRole(4L, role);
 //		} catch (DatabaseException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -51,7 +51,7 @@ public class RoleRepositoryTest {
 //	}
 //	
 //	@Test
-//	public void testSelectRole() {
+//	public void testSelectRoleById() {
 //		try {
 //			Role role = roleRepository.selectRoleById(1L);
 //			
@@ -63,16 +63,28 @@ public class RoleRepositoryTest {
 //	}
 	
 	@Test
-	public void testSelectRoles() {
+	public void testSelectRoleByName() {
 		try {
-			List<Role> roles = roleRepository.selectRoles();
+			Role role = roleRepository.selectRoleByName("ADMIN1");
 			
-			roles.forEach(e -> System.out.println(e.toString()));
+			System.out.println(role.toString());
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+//	@Test
+//	public void testSelectRoles() {
+//		try {
+//			List<Role> roles = roleRepository.selectRoles();
+//			
+//			roles.forEach(e -> System.out.println(e.toString()));
+//		} catch (DatabaseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 //	@Test
 //	public void testRemoveRole() {
