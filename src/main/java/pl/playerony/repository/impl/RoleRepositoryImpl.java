@@ -52,7 +52,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 		
 		String sql = "UPDATE roles "
 				   + "   SET name = ? "
-				   + " WHERE id = ?";
+				   + " WHERE id = ? ";
 		
 		Integer result = sqlManager.createQuery(sql)
 								   .setParameter(role.getName())
@@ -67,7 +67,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 		if(!sqlUtil.checkId("roles", id))
 			throw new DatabaseException("This id[" + id + "] doesnt exist in roles table");
 		
-		String sql = "SELECT * "
+		String sql = "SELECT id, role "
 				   + "  FROM roles "
 				   + " WHERE id = ?";
 		
@@ -83,7 +83,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 		if(!sqlUtil.checkStringValue("roles", "name", name))
 			throw new DatabaseException("This name of role[" + name + "] doesnt exist in roles table");
 		
-		String sql = "SELECT * "
+		String sql = "SELECT id, name "
 				   + "  FROM roles "
 				   + " WHERE name = ?";
 		
@@ -95,21 +95,8 @@ public class RoleRepositoryImpl implements RoleRepository {
 	}
 	
 	@Override
-	public Boolean checkRoleByName(String name) throws DatabaseException {
-		String sql = "SELECT * "
-				   + "	FROM roles "
-				   + " WHERE name = ?";
-		
-		Boolean result = sqlManager.createQuery(sql)
-									   .setParameter(name)
-									   .isExist();
-		
-		return result;
-	}
-	
-	@Override
 	public List<Role> selectRoles() throws DatabaseException {
-		String sql = "SELECT * "
+		String sql = "SELECT id, name "
 				   + "	FROM roles";
 		
 		List<Role> roles = ConvertList.castObjectArrayToRoleList(sqlManager.createQuery(sql)

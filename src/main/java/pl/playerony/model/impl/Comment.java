@@ -10,14 +10,13 @@ public class Comment implements Converter {
 	private Integer likes;
 	private Integer dislikes;
 	
-	public Comment(Long id, String content, Long articleId, Long userId, Integer likes, Integer dislikes) {
+	public Comment() {
 		super();
-		this.id = id;
-		this.content = content;
-		this.articleId = articleId;
-		this.userId = userId;
-		this.likes = likes;
-		this.dislikes = dislikes;
+	}
+	
+	public Comment(Object[] objectArray) {
+		super();
+		convert(objectArray);
 	}
 	
 	public Comment(String content, Long articleId, Long userId, Integer likes, Integer dislikes) {
@@ -29,9 +28,14 @@ public class Comment implements Converter {
 		this.dislikes = dislikes;
 	}
 	
-	public Comment(Object[] objectArray) {
+	public Comment(Long id, String content, Long articleId, Long userId, Integer likes, Integer dislikes) {
 		super();
-		convert(objectArray);
+		this.id = id;
+		this.content = content;
+		this.articleId = articleId;
+		this.userId = userId;
+		this.likes = likes;
+		this.dislikes = dislikes;
 	}
 	
 	/**

@@ -15,8 +15,6 @@ public interface RoleRepository {
 	
 	Role selectRoleByName(String name) throws DatabaseException;
 	
-	Boolean checkRoleByName(String name) throws DatabaseException;
-	
 	List<Role> selectRoles() throws DatabaseException;
 	
 	Boolean removeRole(Long id) throws DatabaseException;

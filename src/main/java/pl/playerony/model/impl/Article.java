@@ -12,14 +12,11 @@ public class Article implements Converter {
 		
 	}
 	
-	public Article(Long id, String title, String content, Long userId) {
+	public Article(Object[] objectArray) {
 		super();
-		this.id = id;
-		this.title = title;
-		this.content = content;
-		this.userId = userId;
+		convert(objectArray);
 	}
-
+	
 	public Article(String title, String content, Long userId) {
 		super();
 		this.title = title;
@@ -27,9 +24,12 @@ public class Article implements Converter {
 		this.userId = userId;
 	}
 	
-	public Article(Object[] objectArray) {
+	public Article(Long id, String title, String content, Long userId) {
 		super();
-		convert(objectArray);
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.userId = userId;
 	}
 
 	/**

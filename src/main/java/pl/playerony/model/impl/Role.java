@@ -6,15 +6,8 @@ public class Role implements Converter {
 	private Long id;
 	private String name;
 	
-	public Role(Long id, String name) {
+	public Role() {
 		super();
-		this.id = id;
-		this.name = name;
-	}
-	
-	public Role(String name) {
-		super();
-		this.name = name;
 	}
 	
 	public Role(Object[] objectArray) {
@@ -22,8 +15,15 @@ public class Role implements Converter {
 		convert(objectArray);
 	}
 	
-	public Role() {
+	public Role(String name) {
 		super();
+		this.name = name;
+	}
+	
+	public Role(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
 	}
 
 	/**
